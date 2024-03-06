@@ -1,0 +1,24 @@
+.label_font_size {
+    font-size: 16px;
+}
+
+@media screen and (max-width:1280px) {
+    .label_font_size {
+        font-size: 12px;
+    }
+}
+
+.table_heading {
+    width: 2% !important;
+}
+
+
+
+/* .table_select_all_heading {
+    width: 17px;
+} */
+
+.custom_table_head {
+    background-color: #2f308c !important;
+    color: white;
+}

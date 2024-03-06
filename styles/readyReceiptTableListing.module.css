@@ -1,0 +1,16 @@
+.receipt_listing_table_row {
+    line-height: 17px;
+    font-size: 0.8rem;
+}
+
+.receipt_listing_table_data {
+    padding: 2px 0px !important;
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+.sr_no_width {
+    max-width: 80px !important;
+}

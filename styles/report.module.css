@@ -1,0 +1,9 @@
+.report_filter_data_field{
+    width: 100%;
+}
+
+@media screen and (max-width:768px) {
+    .report_filter_data_field{
+        max-width: 50% !important;
+    }
+}

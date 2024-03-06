@@ -1,0 +1,61 @@
+.button_field {
+    text-align: end;
+}
+
+.create_button {
+    margin-bottom: 7px;
+    padding: 3px 8px;
+    background: #FFF;
+    color: #0d6efd;
+    border: 1px solid #0d6efd;
+    border-radius: 5px;
+}
+
+.create_button:hover {
+    background-color: #0d6efd;
+    color: #FFF;
+}
+
+.input_field {
+    margin-top: 1%;
+    /* justify-content: center; */
+    max-width: 70px !important;
+    font-size: x-small;
+    /* text-align: end; */
+    border: #808080 1px solid;
+}
+
+.customer_sale_input_field {
+    margin-top: 1%;
+    font-size: x-small;
+    max-width: 65px !important;
+    text-align:end;
+    border: #808080 1px solid;
+}
+
+.table_select {
+    width: 120px;
+    line-height: 15px;
+    text-align: center;
+    border: #808080 1px solid;
+}
+
+.docstatus_button {
+    background-color: #f2dcdc !important;
+    padding: 0 13px !important;
+    color: #f36161 !important;
+    font-size: 0.5rem;
+    margin-left: 10px;
+}
+
+.docstatus_button_text {
+    font-size: 0.9rem;
+}
+.cursor_pointer {
+    cursor: pointer;
+}
+.total_row_input_field{
+    width: 20% !important;
+    border: 0;
+}
+
