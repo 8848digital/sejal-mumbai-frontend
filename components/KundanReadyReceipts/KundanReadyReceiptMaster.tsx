@@ -9,7 +9,6 @@ import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
 import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
 import TabSection from '../TabSection';
 
-
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
     setClick,
@@ -67,10 +66,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
     specificDataFromStore,
   } = useReadyReceiptKarigar();
 
-
   const capitalizeWords: any = (word: any) => {
     return word?.replace(/\b\w/g, (char: any) => char?.toUpperCase());
-  }
+  };
   const receiptName: any = capitalizeWords(lastPartOfURL);
 
   return (
@@ -89,32 +87,34 @@ const ReadyReceiptKundanKarigarMaster = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <div className="tab-responsive ">
-              <KundanListing
-                kundanListing={kundanListing}
-                setKundanListing={setKundanListing}
-                HandleDeleteReceipt={HandleDeleteReceipt}
-                HandleUpdateDocStatus={HandleUpdateDocStatus}
-                karigarData={karigarData}
-                colPlaceholder1={'Receipt No.'}
-                colPlaceholder2={'Karigar'}
-                deleteApiVersion={'v1'}
-                deleteApiMethod={'delete_purchase_receipt'}
-                deleteApiEntity={'purchase_receipt'}
-                purchasRecieptListParams={purchasRecieptListParams}
-                printApiMethod={
-                  lastPartOfURL === 'kundan'
-                    ? 'print_purchase_receipt_kundan'
-                    : 'print_purchase_receipt_mangalsutra'
-                }
-                printApiEntity={
-                  lastPartOfURL === 'kundan'
-                    ? 'purchase_receipt'
-                    : 'purchase_receipt'
-                }
-                kunKarigarDropdownReset={kunKarigarDropdownReset}
-                setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-              />
+            <div className="tab-responsive row">
+              <div className="col-11 mx-auto">
+                <KundanListing
+                  kundanListing={kundanListing}
+                  setKundanListing={setKundanListing}
+                  HandleDeleteReceipt={HandleDeleteReceipt}
+                  HandleUpdateDocStatus={HandleUpdateDocStatus}
+                  karigarData={karigarData}
+                  colPlaceholder1={'Receipt No.'}
+                  colPlaceholder2={'Karigar'}
+                  deleteApiVersion={'v1'}
+                  deleteApiMethod={'delete_purchase_receipt'}
+                  deleteApiEntity={'purchase_receipt'}
+                  purchasRecieptListParams={purchasRecieptListParams}
+                  printApiMethod={
+                    lastPartOfURL === 'kundan'
+                      ? 'print_purchase_receipt_kundan'
+                      : 'print_purchase_receipt_mangalsutra'
+                  }
+                  printApiEntity={
+                    lastPartOfURL === 'kundan'
+                      ? 'purchase_receipt'
+                      : 'purchase_receipt'
+                  }
+                  kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                />
+              </div>
             </div>
           </div>
           <div

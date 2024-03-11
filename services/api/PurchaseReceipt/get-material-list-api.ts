@@ -6,7 +6,7 @@ const materialApi = async (get_access_token: any) => {
   const getHeaders = headerGenerator(get_access_token);
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_material&entity=material`,
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}?version=v1&method=get_material&entity=material`,
       getHeaders
     )
     .then((res: any) => {

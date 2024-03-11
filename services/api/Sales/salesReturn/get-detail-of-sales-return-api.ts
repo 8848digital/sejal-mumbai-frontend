@@ -8,7 +8,7 @@ const GetDetailOfSalesReturnAPi = async (request: any) => {
   const method = 'get_specific_delivery_note_sales_return';
   const entity = 'sales_return';
 
-  const params = `/api/method/sj_antique.sdk.api?version=${version}&method=${method}&entity=${entity}&name=${request.name}`;
+  const params = `${CONSTANTS.API_METHOD_SDK}?version=${version}&method=${method}&entity=${entity}&name=${request.name}`;
 
   const config = {
     headers: {
@@ -22,7 +22,15 @@ const GetDetailOfSalesReturnAPi = async (request: any) => {
       response = res;
     })
     .catch((err: any) => {
-      console.log(err);
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
+      } else {
+        response = err;
+      }
     });
   console.log(response, 'specific receipt res');
   return response;

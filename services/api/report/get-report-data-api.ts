@@ -7,7 +7,7 @@ const ReportApi = async (get_access_token: any, params: any) => {
   console.log(params, '@report params');
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=${params?.version}&method=${params?.method}&entity=${params?.entity}&name=${params?.name}&voucher_no=${params?.voucher_no}&from_date=${params?.from_date}&to_date=${params?.to_date}`,
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}?version=${params?.version}&method=${params?.method}&entity=${params?.entity}&name=${params?.name}&voucher_no=${params?.voucher_no}&from_date=${params?.from_date}&to_date=${params?.to_date}`,
       getHeaders
     )
     .then((res: any) => {

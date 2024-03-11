@@ -1,5 +1,5 @@
 import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
-import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
+import UpdateSaleApi from '@/services/api/general/put-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import PrintApi from '@/services/api/general/print-api';
 import {
@@ -105,26 +105,26 @@ const UseCustomerSaleDetailHook = () => {
       const kunCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-            (data: any) => data.name1 === customKunCategory
-          )
+              (data: any) => data.name1 === customKunCategory
+            )
           : null;
       const csCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-            (data: any) => data.name1 === customCsCategory
-          )
+              (data: any) => data.name1 === customCsCategory
+            )
           : null;
       const otCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-            (data: any) => data.name1 === customOtCategory
-          )
+              (data: any) => data.name1 === customOtCategory
+            )
           : null;
       const bbCategoryData =
         BBCategoryListData?.length > 0
           ? BBCategoryListData.find(
-            (data: any) => data.name1 === customBBCategory
-          )
+              (data: any) => data.name1 === customBBCategory
+            )
           : { name1: '', type: 0 };
 
       // Setting selected category state
@@ -168,7 +168,6 @@ const UseCustomerSaleDetailHook = () => {
       setIsLoading(false);
     }
   }, [DetailOfDeliveryNoteFromStore]);
-
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -329,7 +328,6 @@ const UseCustomerSaleDetailHook = () => {
       );
     }
   };
-
 
   return {
     salesTableData,

@@ -1,12 +1,12 @@
 import { CONSTANTS, headerGenerator } from '@/services/config/api-config';
 import axios from 'axios';
 
-const UpdateSaleApi = async (token: any, val: any) => {
+const PutApi = async (token: any, val: any) => {
   console.log(val, 'vals');
 
   let response: any;
 
-  const params = `/api/method/sj_antique.sdk.api`;
+  const params = `${CONSTANTS.API_METHOD_SDK}`;
 
   const config = {
     headers: {
@@ -35,4 +35,4 @@ const UpdateSaleApi = async (token: any, val: any) => {
   return response;
 };
 
-export default UpdateSaleApi;
+export default PutApi;

@@ -6,7 +6,7 @@ const postMaterialMasterApi = async (get_access_token: any, val: any) => {
   const getHeaders = headerGenerator(get_access_token);
   await axios
     .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`,
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}`,
       val,
       getHeaders
     )

@@ -17,6 +17,7 @@ const Navbar = () => {
   const [showMaster, setShowMaster] = useState<boolean>(false);
   const [showReport, setShowReport] = useState<boolean>(false);
   const [showBarcode, setShowBarcode] = useState<boolean>(false);
+  const [showStock, setShowStock] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -29,7 +30,7 @@ const Navbar = () => {
       <div className=" bg-light">
         <nav
           className="d-flex"
-        // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
+          // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
         >
           {/* <div></div> */}
           <div className="container-lg mt-2 d-flex flex-wrap justify-content-center ">
@@ -44,6 +45,8 @@ const Navbar = () => {
               setShowReport={setShowReport}
               showBarcode={showBarcode}
               setShowBarcode={setShowBarcode}
+              showStock={showStock}
+              setShowStock={setShowStock}
             />
           </div>
 

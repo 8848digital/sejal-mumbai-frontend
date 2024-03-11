@@ -6,7 +6,7 @@ const UpdatePurchaseReceiptApi = async (token: any, val: any, name: any) => {
 
   let response: any;
 
-  const params = `/api/method/sj_antique.sdk.api`;
+  const params = `${CONSTANTS.API_METHOD_SDK}`;
 
   const config = {
     headers: {
@@ -15,11 +15,7 @@ const UpdatePurchaseReceiptApi = async (token: any, val: any, name: any) => {
   };
 
   await axios
-    .put(
-      `${CONSTANTS.API_BASE_URL}${params}`,
-      val,
-      config
-    )
+    .put(`${CONSTANTS.API_BASE_URL}${params}`, val, config)
     .then((res: any) => {
       console.log('post purchase receipt', res);
       response = res;

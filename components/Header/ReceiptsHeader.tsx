@@ -15,6 +15,8 @@ const ReceiptsHeader = ({
   setShowReport,
   showBarcode,
   setShowBarcode,
+  showStock,
+  setShowStock,
 }: any) => {
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -36,12 +38,16 @@ const ReceiptsHeader = ({
     if (value === 'barcode') {
       setShowBarcode(true);
     }
+    if (value === 'stock-transfer') {
+      setShowStock(true);
+    }
   }, [
     setShowMaster,
     setShowReceipts,
     setShowSales,
     setShowReport,
     setShowBarcode,
+    setShowStock,
     value,
   ]);
 
@@ -53,6 +59,7 @@ const ReceiptsHeader = ({
         setShowMaster(false);
         setShowReport(false);
         setShowBarcode(false);
+        setShowStock(false);
         break;
       case 'Sales':
         setShowSales(true);
@@ -60,6 +67,7 @@ const ReceiptsHeader = ({
         setShowMaster(false);
         setShowReport(false);
         setShowBarcode(false);
+        setShowStock(false);
         break;
       case 'Master':
         setShowMaster(true);
@@ -67,6 +75,7 @@ const ReceiptsHeader = ({
         setShowSales(false);
         setShowReport(false);
         setShowBarcode(false);
+        setShowStock(false);
         break;
       case 'Report':
         setShowMaster(false);
@@ -74,9 +83,19 @@ const ReceiptsHeader = ({
         setShowSales(false);
         setShowReport(true);
         setShowBarcode(false);
+        setShowStock(false);
         break;
       case 'Barcode':
         setShowBarcode(true);
+        setShowMaster(false);
+        setShowReceipts(false);
+        setShowSales(false);
+        setShowReport(false);
+        setShowStock(false);
+        break;
+      case 'stock-transfer':
+        setShowStock(true);
+        setShowBarcode(false);
         setShowMaster(false);
         setShowReceipts(false);
         setShowSales(false);
@@ -88,6 +107,7 @@ const ReceiptsHeader = ({
         setShowSales(false);
         setShowReport(false);
         setShowBarcode(false);
+        setShowStock(false);
     }
   };
 
@@ -167,6 +187,21 @@ const ReceiptsHeader = ({
                 style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
               ></i>
               Barcode
+            </button>
+          </Link>
+          <Link
+            className="text-decoration-none btn-margin"
+            href="/stock-transfer"
+          >
+            <button
+              className={`${styles.button} ${showStock ? 'activeColor' : ''}`}
+              onClick={() => handleReadyRecipt('stock-transfer')}
+            >
+              <i
+                className="fa-regular fa-file icons-color mr-2"
+                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
+              ></i>
+              Stock Transfer
             </button>
           </Link>
         </div>

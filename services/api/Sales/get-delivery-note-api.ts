@@ -6,7 +6,7 @@ const getDeliveryNoteApi = async (get_access_token: any) => {
   const getHeaders = headerGenerator(get_access_token);
 
   await axios
-    .get(`${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`, getHeaders)
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}`, getHeaders)
     .then((res: any) => {
       console.log('get DN list', res);
       response = res;

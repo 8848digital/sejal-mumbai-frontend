@@ -1,5 +1,5 @@
 import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
-import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
+import UpdateSaleApi from '@/services/api/general/put-api';
 import PrintApi from '@/services/api/general/print-api';
 import {
   GetDetailOfSalesReturn,
@@ -60,7 +60,6 @@ const UseSalesReturnDetailHook = () => {
     get_detail_sales_return_data
   );
 
-
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
   const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -120,9 +119,9 @@ const UseSalesReturnDetailHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -171,7 +170,6 @@ const UseSalesReturnDetailHook = () => {
       );
     }
   };
-
 
   const handleAmendButtonForSalesReturn: any = async () => {
     const updatedSalesTableData: any = salesReturnTableData.map(

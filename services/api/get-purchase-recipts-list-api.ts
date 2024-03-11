@@ -20,7 +20,7 @@ const getPurchasreceiptListApi = async (
   }&custom_ready_receipt_type=${custom_ready_receipt_type}`;
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?${params}`,
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}?${params}`,
       getHeaders
     )
     .then((res: any) => {

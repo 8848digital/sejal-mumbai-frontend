@@ -91,62 +91,62 @@ const KundanListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-      kundanListing !== null &&
-      (searchInputValues.from_date ||
-        searchInputValues.to_date ||
-        searchKarigar ||
-        searchReceiptNumber ||
-        searchInputValues.status)
+    kundanListing !== null &&
+    (searchInputValues.from_date ||
+      searchInputValues.to_date ||
+      searchKarigar ||
+      searchReceiptNumber ||
+      searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-        const postingDate = new Date(item?.posting_date);
+          const postingDate = new Date(item?.posting_date);
 
-        const dateMatch =
-          (!searchInputValues.from_date ||
-            postingDate >= new Date(searchInputValues.from_date)) &&
-          (!searchInputValues.to_date ||
-            postingDate <= new Date(searchInputValues.to_date));
+          const dateMatch =
+            (!searchInputValues.from_date ||
+              postingDate >= new Date(searchInputValues.from_date)) &&
+            (!searchInputValues.to_date ||
+              postingDate <= new Date(searchInputValues.to_date));
 
-        const karigarMatch = searchKarigar
-          ? item?.custom_karigar
-            ? item.custom_karigar
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-            : item?.custom_client_name
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-          : true;
+          const karigarMatch = searchKarigar
+            ? item?.custom_karigar
+              ? item.custom_karigar
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+              : item?.custom_client_name
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+            : true;
 
-        const receiptNumberMatch = searchReceiptNumber
-          ? item?.name
-            ?.toLowerCase()
-            .includes(searchReceiptNumber.toString().toLowerCase())
-          : true;
+          const receiptNumberMatch = searchReceiptNumber
+            ? item?.name
+                ?.toLowerCase()
+                .includes(searchReceiptNumber.toString().toLowerCase())
+            : true;
 
-        if (searchInputValues.status === 'Draft') {
-          return (
-            item?.docstatus === 0 &&
-            dateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Submitted') {
-          return (
-            item?.docstatus === 1 &&
-            dateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Cancel') {
-          return (
-            item?.docstatus === 2 &&
-            dateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        }
+          if (searchInputValues.status === 'Draft') {
+            return (
+              item?.docstatus === 0 &&
+              dateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Submitted') {
+            return (
+              item?.docstatus === 1 &&
+              dateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Cancel') {
+            return (
+              item?.docstatus === 2 &&
+              dateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          }
 
-        return dateMatch && karigarMatch && receiptNumberMatch;
-      })
+          return dateMatch && karigarMatch && receiptNumberMatch;
+        })
       : kundanListing;
 
   const HandleCancelReceipt: any = async (name: any) => {
@@ -239,10 +239,13 @@ const KundanListing = ({
           {filteredList?.length > 0 &&
             filteredList !== null &&
             filteredList.slice(0, tableViewData).map((item: any, i: any) => (
-              <tr key={i} className={` row d-flex h-25 px-lg-3 px-0 text-small`}>
+              <tr
+                key={i}
+                className={` row d-flex h-25 px-lg-3 px-0 text-small`}
+              >
                 <td
                   className={`table_row p-0  col-lg-1 col-1 text-small`}
-                // style={{ width: '50px' }}
+                  // style={{ width: '50px' }}
                 >
                   {i + 1}
                 </td>
@@ -263,7 +266,9 @@ const KundanListing = ({
                     : item.custom_client_name}
                 </td>
                 <td className={` table_row col-lg-1 col p-0 text-small`}></td>
-                <td className={`table_row col-lg-1 col-2 p-0 text-center text-small`}>
+                <td
+                  className={`table_row col-lg-1 col-2 p-0 text-center text-small`}
+                >
                   {item.docstatus === 0 ? (
                     <span className="align-middle">Draft</span>
                   ) : item.docstatus === 1 ? (
@@ -326,7 +331,7 @@ const KundanListing = ({
                         </div>
                         <div className="col-lg-3 col-12">
                           {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] ? (
+                          new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <a
                                 onClick={() =>
@@ -340,7 +345,6 @@ const KundanListing = ({
                           ) : (
                             <div className=""></div>
                           )}
-
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
@@ -362,7 +366,7 @@ const KundanListing = ({
                       <div className="row justify-content-center  ">
                         <div className="col-lg-3 col-12">
                           {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] ? (
+                          new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <Link
                                 href={`${url}/${item.name}`}
@@ -378,7 +382,7 @@ const KundanListing = ({
 
                         <div className="col-lg-3 col-12">
                           {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] ? (
+                          new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <a
                                 // href=""
@@ -391,7 +395,6 @@ const KundanListing = ({
                           ) : (
                             <div className=""></div>
                           )}
-
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link

@@ -7,7 +7,7 @@ const getWarehouseListApi = async (get_access_token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_warehouse_list&entity=warehouse_list`,
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}?version=v1&method=get_warehouse_list&entity=warehouse_list`,
       getHeaders
     )
     .then((res: any) => {

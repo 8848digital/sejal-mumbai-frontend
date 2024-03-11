@@ -9,7 +9,7 @@ const PostCreateBarcodeApi = async (get_access_token: any, val: any) => {
 
   await axios
     .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`,
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}`,
       val,
       getHeaders
     )

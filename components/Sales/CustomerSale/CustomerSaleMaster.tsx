@@ -63,12 +63,11 @@ const CustomerSaleMaster = () => {
     handleMouseMove,
   }: any = UseScrollbarHook();
 
-
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-        return data.is_return === 0;
-      })
+          return data.is_return === 0;
+        })
       : [];
 
   return (
@@ -87,29 +86,31 @@ const CustomerSaleMaster = () => {
           role="tabpanel"
           aria-labelledby="pills-home-tab"
         >
-          <div className="tab-responsive">
-            <KundanListing
-              kundanListing={kundanListing}
-              karigarData={
-                clientNameListData?.length > 0 &&
-                clientNameListData !== null &&
-                clientNameListData.map((data: any) => ({
-                  karigar_name: data.client_name,
-                }))
-              }
-              colPlaceholder1={'Sales No.'}
-              colPlaceholder2={'Client '}
-              HandleDeleteReceipt={HandleDeleteDeliveryNote}
-              HandleUpdateDocStatus={HandleUpdateDocStatus}
-              printApiMethod={'print_delivery_note_sales'}
-              printApiEntity={'sales'}
-              deleteApiVersion={'v1'}
-              deleteApiMethod={'delete_delivery_note_api'}
-              deleteApiEntity={'sales'}
-              purchasRecieptListParams={deliveryNoteListParams}
-              kunKarigarDropdownReset={itemCodeDropdownReset}
-              setKunKarigarDropdownReset={setItemCodeDropdownReset}
-            />
+          <div className="tab-responsive row">
+            <div className="col-11 mx-auto">
+              <KundanListing
+                kundanListing={kundanListing}
+                karigarData={
+                  clientNameListData?.length > 0 &&
+                  clientNameListData !== null &&
+                  clientNameListData.map((data: any) => ({
+                    karigar_name: data.client_name,
+                  }))
+                }
+                colPlaceholder1={'Sales No.'}
+                colPlaceholder2={'Client '}
+                HandleDeleteReceipt={HandleDeleteDeliveryNote}
+                HandleUpdateDocStatus={HandleUpdateDocStatus}
+                printApiMethod={'print_delivery_note_sales'}
+                printApiEntity={'sales'}
+                deleteApiVersion={'v1'}
+                deleteApiMethod={'delete_delivery_note_api'}
+                deleteApiEntity={'sales'}
+                purchasRecieptListParams={deliveryNoteListParams}
+                kunKarigarDropdownReset={itemCodeDropdownReset}
+                setKunKarigarDropdownReset={setItemCodeDropdownReset}
+              />
+            </div>
           </div>
         </div>
         <div
