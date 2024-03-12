@@ -11,7 +11,7 @@ const DetailPageButtonsSection: any = ({
   setShowSaveButtonForAmendFlow,
   showSaveButtonForAmendFlow,
   setStateForDocStatus,
-  HandleAmendButtonForDuplicateChitti,
+  handleAmendButtonForDuplicateRecord,
   handlePrintApi,
   handleUpdateDocStatus,
   HandleDeleteRecord,
@@ -22,13 +22,16 @@ const DetailPageButtonsSection: any = ({
   const router = useRouter();
 
   const pathParts = router?.asPath?.split('/');
-  const receiptType = pathParts[1];
+  const queryType = pathParts[1];
 
   const HandleAmendButtonChanges: any = async () => {
     setShowSaveButtonForAmendFlow(true);
     setStateForDocStatus(true);
     setReadOnlyFields(false);
   };
+
+  console.log('detail page buttons section', stateForDocStatus, data);
+
   return (
     <div className="d-flex align-items-center justify-content-between">
       <div className="">
@@ -36,28 +39,28 @@ const DetailPageButtonsSection: any = ({
           type="button"
           className={`${styles.create_button} px-2 py-0 me-2`}
           onClick={() => {
-            router.push(`/${receiptType}`);
+            router.push(`/${queryType}`);
             // specificDataFromStore = null;
           }}
         >
           Back
         </button>
-        {stateForDocStatus === true && data?.docStatus === 0 && (
+        {stateForDocStatus === true && data?.docstatus === 0 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
             <span className={`${styles.docstatus_button_text}`}>Not saved</span>
           </button>
         )}
-        {stateForDocStatus === false && data?.docStatus === 0 && (
+        {stateForDocStatus === false && data?.docstatus === 0 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
             <span className={`${styles.docstatus_button_text}`}>Draft</span>
           </button>
         )}
-        {data?.docStatus === 1 && (
+        {data?.docstatus === 1 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
             <span className={`${styles.docstatus_button_text}`}>Submitted</span>
           </button>
         )}
-        {data?.docStatus === 2 && readOnlyFields && (
+        {data?.docstatus === 2 && readOnlyFields && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
             <span className={`${styles.docstatus_button_text}`}>Cancelled</span>
           </button>
@@ -73,7 +76,7 @@ const DetailPageButtonsSection: any = ({
           )}
       </div>
       <div className={`${styles.button_field}`}>
-        {data?.docStatus === 0 && stateForDocStatus && (
+        {data?.docstatus === 0 && stateForDocStatus && (
           <button
             type="button"
             className={`${styles.create_button} px-2 py-0 me-2`}
@@ -82,7 +85,7 @@ const DetailPageButtonsSection: any = ({
             Save
           </button>
         )}
-        {data?.docStatus === 1 && stateForDocStatus === false && (
+        {data?.docstatus === 1 && stateForDocStatus === false && (
           <button
             type="button"
             className={`${styles.create_button} px-2 py-0 me-2`}
@@ -93,7 +96,7 @@ const DetailPageButtonsSection: any = ({
             Print
           </button>
         )}
-        {data?.docStatus === 0 && stateForDocStatus === false && (
+        {data?.docstatus === 0 && stateForDocStatus === false && (
           <button
             type="button"
             className={`${styles.create_button} px-2 py-0 me-2`}
@@ -104,7 +107,7 @@ const DetailPageButtonsSection: any = ({
         )}
         {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
           <>
-            {data?.docStatus === 1 && stateForDocStatus === false && (
+            {data?.docstatus === 1 && stateForDocStatus === false && (
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
@@ -117,7 +120,7 @@ const DetailPageButtonsSection: any = ({
         )}
         {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
           <>
-            {data?.docStatus === 2 && stateForDocStatus === false && (
+            {data?.docstatus === 2 && stateForDocStatus === false && (
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
@@ -134,7 +137,7 @@ const DetailPageButtonsSection: any = ({
           readOnlyFields === false && (
             <button
               type="submit"
-              onClick={HandleAmendButtonForDuplicateChitti}
+              onClick={handleAmendButtonForDuplicateRecord}
               className={`${styles.create_button} px-2 py-0 me-2 `}
             >
               Save
@@ -143,7 +146,7 @@ const DetailPageButtonsSection: any = ({
 
         {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
           <>
-            {data?.docStatus === 2 && (
+            {data?.docstatus === 2 && (
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2 `}

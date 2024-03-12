@@ -25,6 +25,7 @@ const StockTransferMaster = () => {
     warehouseList,
     sourceLocation,
     handleUpdateDocStatus,
+    handleDeleteStockTransfer,
   }: any = useStockTransfer();
   return (
     <div className="container">
@@ -46,6 +47,7 @@ const StockTransferMaster = () => {
               <StockTransferListing
                 stockTransferListingData={stockTransferListingData}
                 handleUpdateDocStatus={handleUpdateDocStatus}
+                handleDeleteRecord={handleDeleteStockTransfer}
               />
             </div>
           </div>

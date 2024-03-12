@@ -5,9 +5,10 @@ const StockTransferTopSection = ({
   handleSelectedLocation,
   warehouseList,
   sourceLocation,
+  readOnlyFields,
   stockTransferData,
 }: any) => {
-  console.log('warehouseList', sourceLocation);
+  console.log('readOnlyFields', readOnlyFields);
   return (
     <div className="">
       <div className=" mt-2">
@@ -49,14 +50,13 @@ const StockTransferTopSection = ({
                   aria-label=".form-select-sm example"
                   onChange={handleSelectedLocation}
                   // defaultValue={stockTransferData?.custom_locations}
-                  value={sourceLocation?.name}
+                  value={sourceLocation}
+                  disabled={readOnlyFields}
                 >
                   <option selected>Select Location</option>
                   {warehouseList?.length > 0 &&
                     warehouseList.map((warehouse: any) => (
-                      <option value={`${warehouse.name}|${warehouse.name}`}>
-                        {warehouse.name}
-                      </option>
+                      <option value={warehouse.name}>{warehouse.name}</option>
                     ))}
                 </select>
               </td>

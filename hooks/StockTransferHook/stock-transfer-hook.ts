@@ -1,6 +1,5 @@
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
-import CreateStockTransferApi from '@/services/api/StockTransfer/create-stock-transfer-api';
 import GetApi from '@/services/api/general/get-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import {
@@ -11,6 +10,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useCustomStockTransfer from './custom-stock-transfer-hook';
+import PostApi from '@/services/api/general/post-api';
+import { toast } from 'react-toastify';
 
 const useStockTransfer = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,7 @@ const useStockTransfer = () => {
     []
   );
   const [warehouseList, setWarehouseList] = useState<any>([]);
-  const [sourceLocation, setSourceLocation] = useState<any>({
-    id: '',
-    name: '',
-  });
-  const [stateForDocStatus, setStateForDocStatus] = useState<boolean>(false);
+  const [sourceLocation, setSourceLocation] = useState<any>('');
   const [itemCodeListData, setitemCodeListData] = useState<any>([]);
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState('');
@@ -39,11 +36,20 @@ const useStockTransfer = () => {
     stockTransferListingDataFromStore
   );
 
-  const { handleUpdateDocStatus, handleDeleteStockTransfer }: any =
-    useCustomStockTransfer();
+  const {
+    handleUpdateDocStatus,
+    handleDeleteStockTransfer,
+    stateForDocStatus,
+    setStateForDocStatus,
+    readOnlyFields,
+    setReadOnlyFields,
+    showSaveButtonForAmendFlow,
+    setShowSaveButtonForAmendFlow,
+  }: any = useCustomStockTransfer();
+
   const initialTableData: any = {
     idx: 1,
-    source_warehouse: sourceLocation.name,
+    source_warehouse: sourceLocation,
     target_warehouse: '',
     item_code: '',
     qty: 1,
@@ -67,7 +73,7 @@ const useStockTransfer = () => {
     let itemCodesData: any = await getItemListInSalesApi(
       loginAcessToken?.token
     );
-    console.log('itemcode', itemCodesData);
+
     if (itemCodesData?.data?.hasOwnProperty('data')) {
       if (itemCodesData?.data?.data?.length > 0) {
         setitemCodeListData(itemCodesData?.data?.data);
@@ -101,46 +107,38 @@ const useStockTransfer = () => {
   }, [stockTransferListingDataFromStore]);
 
   const handleStockTransferCreate: any = async () => {
-    console.log('stockTransferData', stockTransferData, sourceLocation.id);
-
     const reqBody: any = {
       version: 'v1',
       method: 'create_stock_entry',
       entity: 'stock_entry',
-      custom_locations: sourceLocation.id,
+      custom_locations: sourceLocation,
       stock_entry_type: 'Material Transfer',
 
       items: stockTransferData,
     };
 
-    let createStockTransfer = await CreateStockTransferApi(
-      loginAcessToken?.token,
-      reqBody
-    );
+    let createStockTransfer = await PostApi(loginAcessToken?.token, reqBody);
     console.log('create stock transfer', createStockTransfer);
     if (createStockTransfer?.message?.data?.status === 'success') {
+      toast.success('Stock Entry Created Successfully');
       router.push(
         `${router.pathname}/${createStockTransfer?.message?.data.client_id}`
       );
     }
-    // router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
   };
 
-  const handleNewStockTransfer: any = () => {};
+  const handleNewStockTransfer: any = () => {
+    setSourceLocation('');
+    setStockTransferData([initialTableData]);
+  };
 
   const handleSelectedLocation: any = (e: any) => {
-    console.log('select location', stockTransferData);
     let value: any = e.target.value;
-
-    let [id, name] = value.split('|');
-    setSourceLocation({
-      id: id,
-      name: name,
-    });
+    setSourceLocation(value);
     setStockTransferData((prevData: any) =>
       prevData.map((row: any) => ({
         ...row,
-        source_warehouse: id,
+        source_warehouse: value,
       }))
     );
     setStateForDocStatus(true);
@@ -149,7 +147,7 @@ const useStockTransfer = () => {
   const handleAddRowForStockTransfer: any = () => {
     let newRow: any = {
       idx: stockTransferData?.length + 1,
-      source_warehouse: sourceLocation.id,
+      source_warehouse: sourceLocation,
       target_warehouse: '',
       item_code: '',
       qty: 1,
@@ -165,6 +163,7 @@ const useStockTransfer = () => {
         .filter((item: any) => item.idx !== id)
         .map((row: any, index: number) => ({ ...row, idx: index + 1 }));
       setStockTransferData(updatedData);
+      setStateForDocStatus(true);
     }
   };
 
@@ -190,6 +189,10 @@ const useStockTransfer = () => {
     setStateForDocStatus,
     handleDeleteStockTransfer,
     handleUpdateDocStatus,
+    readOnlyFields,
+    setReadOnlyFields,
+    showSaveButtonForAmendFlow,
+    setShowSaveButtonForAmendFlow,
   };
 };
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { CONSTANTS } from '@/services/config/api-config';
 
-const PostApi = async ({ getHeaders, val }: any) => {
+const PostApi = async (getHeaders: any, val: any) => {
   try {
     const response = await axios.post(
       `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_METHOD_SDK}`,

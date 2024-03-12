@@ -17,13 +17,14 @@ const StockTransferTable = ({
   itemCodeListData,
   warehouseList,
   sourceLocation,
+  readOnlyFields,
 }: any) => {
-  console.log(
-    'stockTransferData',
-    itemCodeListData,
-    warehouseList,
-    sourceLocation
-  );
+  // console.log(
+  //   'stockTransferData',
+  //   itemCodeListData,
+  //   warehouseList,
+  //   sourceLocation
+  // );
   const updatedList =
     itemCodeListData?.length > 0 &&
     itemCodeListData.map((data: any) => ({
@@ -33,7 +34,7 @@ const StockTransferTable = ({
   const targetWarehouseList =
     warehouseList?.length > 0 &&
     warehouseList
-      .filter((data: any) => data.name !== sourceLocation?.name)
+      .filter((data: any) => data.name !== sourceLocation)
       .map((data: any) => ({
         karigar_name: data.name,
       }));
@@ -47,9 +48,9 @@ const StockTransferTable = ({
               <button
                 className="btn btn-link p-0"
                 onClick={() => {
-                  // if (!readOnlyFields) {
-                  handleAddRowForStockTransfer();
-                  // }
+                  if (!readOnlyFields) {
+                    handleAddRowForStockTransfer();
+                  }
                 }}
               >
                 Add Row
@@ -107,7 +108,7 @@ const StockTransferTable = ({
                               item={item}
                               id={item?.idx}
                               // setStateForDocStatus={setStateForDocStatus}
-                              // readOnlyFields={readOnlyFields}
+                              readOnlyFields={readOnlyFields}
                               // selectedKundanKarigarDropdownValue={selectedItemCode}
                               setSelectedKundanKarigarDropdownValue={
                                 setSelectedItemCodeForCustomerSale
@@ -138,7 +139,7 @@ const StockTransferTable = ({
                               id={item?.idx}
                               width={styled.stock_transfer_drop}
                               // setStateForDocStatus={setStateForDocStatus}
-                              // readOnlyFields={readOnlyFields}
+                              readOnlyFields={readOnlyFields}
                               // selectedKundanKarigarDropdownValue={selectedItemCode}
                               setSelectedKundanKarigarDropdownValue={
                                 setSelectedItemCodeForCustomerSale
@@ -151,9 +152,9 @@ const StockTransferTable = ({
                             <button
                               className="d-flex align-items-center delete-link p-1 border-0"
                               onClick={() => {
-                                // if (!readOnlyFields) {
-                                handleDeleteRow(item.idx);
-                                // }
+                                if (!readOnlyFields) {
+                                  handleDeleteRow(item.idx);
+                                }
                               }}
                               // onKeyDown={(e) => {
                               //   if (!readOnlyFields) {

@@ -8,6 +8,7 @@ import LoadMoreTableDataInMaster from '@/components/Master/LoadMoreTableDataInMa
 const StockTransferListing = ({
   stockTransferListingData,
   handleUpdateDocStatus,
+  handleDeleteRecord,
 }: any) => {
   const router = useRouter();
 
@@ -265,7 +266,7 @@ const StockTransferListing = ({
                           new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <a
-                                // onClick={() => HandleDeleteReceipt(item.name)}
+                                onClick={() => handleDeleteRecord(item.name)}
                                 className={`button-section-text text-danger ${styles.cursor_pointer}`}
                               >
                                 Delete

@@ -30,6 +30,11 @@ const DetailOfStockTransfer = () => {
     handleUpdateStockTransfer,
     handleDeleteStockTransfer,
     handleUpdateDocStatus,
+    readOnlyFields,
+    setReadOnlyFields,
+    showSaveButtonForAmendFlow,
+    setShowSaveButtonForAmendFlow,
+    handleAmendButtonForDuplicateRecord,
   }: any = useStockTranferDetail();
   console.log('stockTransferData', stockTransferData);
   const stockTransferDetailFromStore: any = useSelector(
@@ -40,17 +45,22 @@ const DetailOfStockTransfer = () => {
       <div className="row">
         <div className="col-lg-9 mx-auto">
           <DetailPageButtonsSection
-            data={stockTransferDetailFromStore}
+            data={
+              stockTransferDetailFromStore?.data?.length > 0 &&
+              stockTransferDetailFromStore?.data?.[0]
+            }
             stateForDocStatus={stateForDocStatus}
             setStateForDocStatus={setStateForDocStatus}
             handleUpdateStockTransfer={handleUpdateStockTransfer}
             HandleDeleteRecord={handleDeleteStockTransfer}
             handleUpdateDocStatus={handleUpdateDocStatus}
-            // setReadOnlyFields={setReadOnlyFields}
-            // readOnlyFields={readOnlyFields}
-            // setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-            // showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-            // HandleAmendButtonForDuplicateChitti={HandleAmendButtonForDuplicateChitti}
+            setReadOnlyFields={setReadOnlyFields}
+            readOnlyFields={readOnlyFields}
+            setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
+            showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+            handleAmendButtonForDuplicateRecord={
+              handleAmendButtonForDuplicateRecord
+            }
             // handlePrintApi={handlePrintApi}
             // printApiMethod={printApiMethod}
             // printApiEntity={printApiEntity}
@@ -60,7 +70,9 @@ const DetailOfStockTransfer = () => {
             sourceLocation={sourceLocation}
             handleSelectedLocation={handleSelectedLocation}
             stockTransferData={stockTransferData}
+            readOnlyFields={readOnlyFields}
           />
+
           <StockTransferTable
             stockTransferData={stockTransferData}
             setStockTransferData={setStockTransferData}
@@ -74,6 +86,8 @@ const DetailOfStockTransfer = () => {
             handleDeleteRow={handleDeleteRow}
             itemCodeListData={itemCodeListData}
             warehouseList={warehouseList}
+            readOnlyFields={readOnlyFields}
+            sourceLocation={sourceLocation}
           />
         </div>
       </div>
