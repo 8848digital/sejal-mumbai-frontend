@@ -25,10 +25,11 @@ const StockTransferTable = ({
   //   warehouseList,
   //   sourceLocation
   // );
+  console.log('itemCodeListData', stockTransferData);
   const updatedList =
     itemCodeListData?.length > 0 &&
     itemCodeListData.map((data: any) => ({
-      karigar_name: data.name,
+      karigar_name: data.item_code,
     }));
 
   const targetWarehouseList =
@@ -82,7 +83,7 @@ const StockTransferTable = ({
                             <input
                               className={`text-center w-100 ${styled.stock_transfer_input}`}
                               type="text"
-                              // value={sourceLocation?.name}
+                              value={item?.source_warehouse}
                               defaultValue={item?.source_warehouse}
                               readOnly
                             />

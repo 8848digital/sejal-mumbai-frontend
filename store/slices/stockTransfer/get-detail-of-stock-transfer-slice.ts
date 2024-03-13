@@ -21,7 +21,7 @@ interface RepoStockTransferState {
 }
 
 const initialState: RepoStockTransferState = {
-  data: '',
+  data: [],
   docStatus: '',
   error: '',
   isLoading: 'idle',
@@ -34,7 +34,7 @@ export const GetDetailOfStockTransferScreen = createSlice({
   extraReducers: (builder) => {
     builder.addCase(GetDetailOfStockTransfer.pending, (state) => {
       state.isLoading = 'pending';
-      state.data = '';
+      state.data = [];
       state.docStatus = '';
     });
     builder.addCase(GetDetailOfStockTransfer.fulfilled, (state, action) => {
@@ -46,14 +46,14 @@ export const GetDetailOfStockTransferScreen = createSlice({
         state.docStatus = action?.payload?.data?.message?.data[0]?.docstatus;
         state.isLoading = 'succeeded';
       } else {
-        state.data = '';
+        state.data = [];
         state.docStatus = '';
         state.isLoading = 'succeeded';
       }
     });
     builder.addCase(GetDetailOfStockTransfer.rejected, (state) => {
       state.isLoading = 'failed';
-      state.data = '';
+      state.data = [];
       state.docStatus = '';
       state.error = 'failed to store data';
     });

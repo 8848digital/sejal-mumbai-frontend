@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useCustomStockTransfer from './custom-stock-transfer-hook';
 import PostApi from '@/services/api/general/post-api';
 import { toast } from 'react-toastify';
+import getSourceWarehouseItemCode from '@/services/api/StockTransfer/get-source-warehouse-item-code';
 
 const useStockTransfer = () => {
   const dispatch = useDispatch();
@@ -31,10 +32,10 @@ const useStockTransfer = () => {
   const stockTransferListingDataFromStore = useSelector(
     get_listing_stock_transfer_data
   );
-  console.log(
-    'stockTransferListingFromStore',
-    stockTransferListingDataFromStore
-  );
+  // console.log(
+  //   'stockTransferListingFromStore',
+  //   stockTransferListingDataFromStore
+  // );
 
   const {
     handleUpdateDocStatus,
@@ -69,15 +70,16 @@ const useStockTransfer = () => {
     dispatch(GetStockTransferListing(reqParams));
   };
 
-  const getItemCodesDataFun: any = async () => {
-    let itemCodesData: any = await getItemListInSalesApi(
-      loginAcessToken?.token
-    );
-
-    if (itemCodesData?.data?.hasOwnProperty('data')) {
-      if (itemCodesData?.data?.data?.length > 0) {
-        setitemCodeListData(itemCodesData?.data?.data);
-      }
+  const getItemCodesDataFun: any = async (source_loc: any) => {
+    const reqParams: any = {
+      token: loginAcessToken?.token,
+      warehouse_name: source_loc,
+    };
+    let itemCodesData: any = await getSourceWarehouseItemCode(reqParams);
+    if (itemCodesData?.data?.message?.status === 'success') {
+      setitemCodeListData(itemCodesData?.data?.message?.data);
+    } else {
+      setitemCodeListData([]);
     }
   };
 
@@ -94,7 +96,6 @@ const useStockTransfer = () => {
   };
   useEffect(() => {
     getStockTransferListingFun();
-    getItemCodesDataFun();
     getWarehouseListApiFun();
   }, []);
 
@@ -122,7 +123,7 @@ const useStockTransfer = () => {
     if (createStockTransfer?.message?.data?.status === 'success') {
       toast.success('Stock Entry Created Successfully');
       router.push(
-        `${router.pathname}/${createStockTransfer?.message?.data.client_id}`
+        `${router.pathname}/${createStockTransfer?.message?.data?.client_id}`
       );
     }
   };
@@ -142,6 +143,7 @@ const useStockTransfer = () => {
       }))
     );
     setStateForDocStatus(true);
+    getItemCodesDataFun(value);
   };
 
   const handleAddRowForStockTransfer: any = () => {

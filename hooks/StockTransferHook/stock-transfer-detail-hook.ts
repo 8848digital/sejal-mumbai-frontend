@@ -4,7 +4,7 @@ import {
   get_detail_stock_transfer_data,
 } from '@/store/slices/stockTransfer/get-detail-of-stock-transfer-slice';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useStockTransfer from './stock-transfer-hook';
 import PutApi from '@/services/api/general/put-api';
@@ -15,6 +15,8 @@ const useStockTranferDetail: any = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const stockTransferDetailFromStore: any = useSelector(
     get_detail_stock_transfer_data
   );
@@ -62,11 +64,21 @@ const useStockTranferDetail: any = () => {
   }, [query]);
 
   useEffect(() => {
-    if (stockTransferDetailFromStore?.data?.length > 0) {
+    if (
+      stockTransferDetailFromStore?.isLoading === 'pending' &&
+      stockTransferDetailFromStore?.data?.length === 0
+    ) {
+      setIsLoading(true);
+    } else if (stockTransferDetailFromStore?.isLoading === 'succeeded') {
+      setIsLoading(false);
       setStockTransferData(stockTransferDetailFromStore?.data[0]?.items);
       setSourceLocation(
         stockTransferDetailFromStore?.data[0]?.custom_locations
       );
+    } else if (stockTransferDetailFromStore?.isLoading === 'failed') {
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
     }
   }, [stockTransferDetailFromStore]);
 
@@ -157,6 +169,7 @@ const useStockTranferDetail: any = () => {
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
     handleAmendButtonForDuplicateRecord,
+    isLoading,
   };
 };
 

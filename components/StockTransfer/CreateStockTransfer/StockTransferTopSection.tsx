@@ -8,7 +8,7 @@ const StockTransferTopSection = ({
   readOnlyFields,
   stockTransferData,
 }: any) => {
-  console.log('readOnlyFields', readOnlyFields);
+  console.log('readOnlyFields', sourceLocation);
   return (
     <div className="">
       <div className=" mt-2">
