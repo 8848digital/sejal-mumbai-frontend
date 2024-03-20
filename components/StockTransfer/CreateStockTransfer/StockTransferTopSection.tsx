@@ -1,4 +1,5 @@
 import CurrentDate from '@/components/CurrentDate';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const StockTransferTopSection = ({
@@ -8,7 +9,8 @@ const StockTransferTopSection = ({
   readOnlyFields,
   stockTransferData,
 }: any) => {
-  console.log('readOnlyFields', sourceLocation);
+  const { query }: any = useRouter();
+  console.log('readOnlyFields', query);
   return (
     <div className="">
       <div className=" mt-2">
@@ -34,7 +36,7 @@ const StockTransferTopSection = ({
                   type="text"
                   name="remarks"
                   autoComplete="off"
-                  //   value={query?.deliveryNoteId}
+                  value={query?.stockId}
                   readOnly
                 />
               </td>

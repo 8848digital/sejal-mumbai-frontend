@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import UseScrollbarHook from './report-table-scrollbar-hook';
 import { get_item_status_report_data } from '@/store/slices/Report/item-status-report-slice';
 import { toast } from 'react-toastify';
-import PrintApi from '@/services/api/general/print-api';
 import ReportPrintApi from '@/services/api/report/report-print-api';
 
 const useItemStatusReportHook = () => {
@@ -20,20 +19,27 @@ const useItemStatusReportHook = () => {
   }: any = UseScrollbarHook();
 
   // access token
-  const loginAcessToken = useSelector(get_access_token);
+  const loginAccessToken: any = useSelector(get_access_token);
   // filter states
   const [searchItem, setSearchItem] = useState<string>('');
   const [searchVoucherNum, setSearchVoucherNum] = useState<string>('');
   const [searchName, setSearchName] = useState('');
   const [selectDropDownReset, setSelectDropDownReset] = useState<string>('');
+  const todayDate: any = new Date()?.toISOString()?.split('T')[0];
+
   const [searchInputValues, setSearchInputValues] = useState({
-    from_date: '',
-    to_date: '',
+    from_date: todayDate,
+    to_date: todayDate,
+  });
+
+  const [itemCodeSearchValues, setItemCodeSearchValues] = useState<any>({
+    name: '',
+    karigar: '',
   });
 
   // report data states
   const [itemStatusReportState, setItemStatusReportState] = useState<any>();
-  const [dailyQtyStatusReport, setDailyQtyStatusReport] = useState<any>();
+  const [reportData, setReportData] = useState<any>([]);
   const [itemList, setItemList] = useState<any>();
 
   // loader state
@@ -41,9 +47,8 @@ const useItemStatusReportHook = () => {
   const [dailyStatusLoading, setDailyStatusLoading] = useState<number>(0);
 
   const router = useRouter();
+  const { query } = useRouter();
   const dispatch = useDispatch();
-
-  const itemStatusReportData: any = useSelector(get_item_status_report_data);
 
   const HandleRefresh = () => {
     router.reload();
@@ -74,39 +79,39 @@ const useItemStatusReportHook = () => {
       searchInputValues.to_date === undefined ? '' : searchInputValues.to_date,
     voucher_no: '',
   };
-
+  let itemCodeParams: any = {
+    version: 'v1',
+    method: 'product_code_report',
+    entity: 'report',
+  };
   useEffect(() => {
-    const getStateData: any = async () => {
-      const itemReportData: any = await ReportApi(
-        loginAcessToken.token,
-        itemStatusReportParams
-      );
-      const dailyQtyReportData: any = await ReportApi(
-        loginAcessToken.token,
-        dailyQtyStatusReportParams
-      );
-      const itemListData: any = await getItemListInSalesApi(
-        loginAcessToken.token
-      );
+    const getStateData = async () => {
+      let reportData;
+      if (query?.reportId === 'daily-qty-status') {
+        reportData = await ReportApi(
+          loginAccessToken.token,
+          dailyQtyStatusReportParams
+        );
+      } else if (query?.reportId === 'product-code') {
+        reportData = await ReportApi(loginAccessToken.token, itemCodeParams);
+      }
 
-      if (itemReportData?.data?.message?.status === 'success') {
-        setItemStatusReportState(itemReportData?.data?.message?.data);
-        if (itemReportData?.data?.message?.data?.length > 0) {
-          setIsLoading(1);
-        } else setIsLoading(2);
-      }
-      if (dailyQtyReportData?.data?.message?.status === 'success') {
-        setDailyQtyStatusReport(dailyQtyReportData?.data?.message?.data);
-        if (dailyQtyReportData?.data?.message?.data?.length > 0) {
+      if (reportData?.data?.message?.status === 'success') {
+        setReportData(reportData?.data?.message?.data);
+        if (reportData?.data?.message?.data?.length > 0) {
           setDailyStatusLoading(1);
-        } else setDailyStatusLoading(2);
+        } else {
+          setDailyStatusLoading(2);
+        }
       }
+
+      const itemListData = await getItemListInSalesApi(loginAccessToken.token);
       if (itemListData?.data?.data?.length > 0) {
         setItemList(itemListData?.data?.data);
       }
     };
     getStateData();
-  }, []);
+  }, [query]);
 
   const itemVoucherNumber: any =
     itemStatusReportState?.length > 0 &&
@@ -116,146 +121,13 @@ const useItemStatusReportHook = () => {
     }));
 
   const dailyStatusSearchName: any =
-    dailyQtyStatusReport?.length > 0 &&
-    dailyQtyStatusReport !== null &&
-    dailyQtyStatusReport.map((data: any) => ({
+    reportData?.length > 0 &&
+    reportData !== null &&
+    reportData.map((data: any) => ({
       karigar_name: data.name,
     }));
-  // useEffect(() => {
-  //   const getItemDataFun = async () => {
-  //     const itemReportDataFun = () => {
-  //       if (
-  //         (searchItem !== '' &&
-  //           searchItem !== undefined &&
-  //           searchItem.length > 4) ||
-  //         (searchVoucherNum !== undefined && searchVoucherNum.length > 16)
-  //       ) {
-  //         return true;
-  //       }
-  //       return false;
-  //     };
-  //     if (itemReportDataFun()) {
-  //       try {
-  //         let itemReportApi = await ReportApi(
-  //           loginAcessToken?.token,
-  //           itemStatusReportParams
-  //         );
-
-  //         if (itemReportApi?.data?.message?.status === 'success') {
-  //           setItemStatusReportState(itemReportApi?.data?.message?.data);
-  //           if (itemReportApi?.data?.message?.data?.length > 0) {
-  //             setIsLoading(1);
-  //           } else {
-  //             setIsLoading(2);
-  //           }
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching item status report:', error);
-  //       }
-  //     }
-
-  //     const checkNoFilterApply = () => {
-  //       if (
-  //         !itemStatusReportParams.name &&
-  //         !itemStatusReportParams.from_date &&
-  //         !itemStatusReportParams.to_date &&
-  //         !itemStatusReportParams.voucher_no
-  //       ) {
-  //         return true;
-  //       }
-  //       return false;
-  //     };
-  //     if (checkNoFilterApply()) {
-  //       try {
-  //         let itemReportApi = await ReportApi(
-  //           loginAcessToken?.token,
-  //           itemStatusReportParams
-  //         );
-
-  //         if (itemReportApi?.data?.message?.status === 'success') {
-  //           setItemStatusReportState(itemReportApi?.data?.message?.data);
-  //           if (itemReportApi?.data?.message?.data?.length > 0) {
-  //             setIsLoading(1);
-  //           } else {
-  //             setIsLoading(2);
-  //           }
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching item status report:', error);
-  //       }
-  //     }
-  //   };
-  //   getItemDataFun();
-  // }, [
-  //   searchItem,
-  //   searchInputValues.fromDate,
-  //   searchInputValues.toDate,
-  //   searchVoucherNum,
-  // ]);
-  // useEffect(() => {
-  //   const getDailyStatusData = async () => {
-  //     if (
-  //       searchName !== '' &&
-  //       searchName !== undefined &&
-  //       searchName.length > 4
-  //     ) {
-  //       const itemReportDataFun = async () => {
-  //         try {
-  //           let itemReportApi = await ReportApi(
-  //             loginAcessToken?.token,
-  //             dailyQtyStatusReportParams
-  //           );
-
-  //           if (itemReportApi?.data?.message?.status === 'success') {
-  //             setDailyQtyStatusReport(itemReportApi?.data?.message?.data);
-  //             if (itemReportApi?.data?.message?.data?.length > 0) {
-  //               setDailyStatusLoading(1);
-  //             } else {
-  //               setDailyStatusLoading(2);
-  //             }
-  //           }
-  //         } catch (error) {
-  //           console.error('Error fetching item status report:', error);
-  //         }
-  //       };
-  //       itemReportDataFun();
-  //     }
-  //     const checkNoFilterApply = () => {
-  //       if (
-  //         !dailyQtyStatusReportParams.name &&
-  //         !dailyQtyStatusReportParams.from_date &&
-  //         !dailyQtyStatusReportParams.to_date
-  //       ) {
-  //         return true;
-  //       }
-  //       return false;
-  //     };
-  //     if (checkNoFilterApply()) {
-  //       try {
-  //         let itemReportApi = await ReportApi(
-  //           loginAcessToken?.token,
-  //           dailyQtyStatusReportParams
-  //         );
-
-  //         console.log('getItemCodeDetails api res', itemReportApi);
-  //         if (itemReportApi?.data?.message?.status === 'success') {
-  //           setDailyQtyStatusReport(itemReportApi?.data?.message?.data);
-  //           if (itemReportApi?.data?.message?.data?.length > 0) {
-  //             setDailyStatusLoading(1);
-  //           } else {
-  //             setDailyStatusLoading(2);
-  //           }
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching item status report:', error);
-  //       }
-  //     }
-  //   };
-  //   getDailyStatusData();
-  // }, [searchInputValues.toDate, searchName, searchInputValues.fromDate]);
 
   const HandleReportPrint: any = async () => {
-    console.log('print api');
     const reqParams: any = {
       version: 'v1',
       method: 'print_report_daily_qty_status',
@@ -273,28 +145,40 @@ const useItemStatusReportHook = () => {
     }
   };
   const HandleSearchInput: any = (e: any) => {
+    console.log('first', e.target.name);
     const { name, value } = e.target;
     setSearchInputValues({
       ...searchInputValues,
       [name]: value,
     });
   };
+  const handleItemCodeSearchInput: any = (e: any) => {
+    const { name, value } = e.target;
+    setItemCodeSearchValues({
+      ...itemCodeSearchValues,
+      [name]: value,
+    });
+  };
+
+  const handleSearchItemCodeReport: any = () => {};
+
   const HandleSerachReport = async () => {
     const dailyQtyReportData: any = await ReportApi(
-      loginAcessToken.token,
+      loginAccessToken.token,
       dailyQtyStatusReportParams
     );
     if (dailyQtyReportData?.data?.message?.status === 'success') {
-      setDailyQtyStatusReport(dailyQtyReportData?.data?.message?.data);
+      setReportData(dailyQtyReportData?.data?.message?.data);
       if (dailyQtyReportData?.data?.message?.data?.length > 0) {
         setDailyStatusLoading(1);
       } else setDailyStatusLoading(2);
     }
   };
 
+  console.log('report data set', reportData);
+
   return {
     itemStatusReportState,
-    dailyQtyStatusReport,
     itemVoucherNumber,
     setSearchItem,
     searchItem,
@@ -318,6 +202,11 @@ const useItemStatusReportHook = () => {
     setSearchName,
     HandleReportPrint,
     HandleSerachReport,
+    reportData,
+    itemCodeSearchValues,
+    setItemCodeSearchValues,
+    handleItemCodeSearchInput,
+    handleSearchItemCodeReport,
   };
 };
 export default useItemStatusReportHook;

@@ -96,6 +96,7 @@ const ItemStatusReport: any = ({
         setSearchName={setSearchName}
         name={name}
         HandleSerachReport={HandleSerachReport}
+        searchInputValues={searchInputValues}
       />
 
       {isLoading === 0 && <Loader />}

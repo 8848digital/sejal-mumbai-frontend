@@ -234,38 +234,6 @@ const ReadyReceiptKundanKarigarMaster = () => {
         />
       </div>
     </div>
-    // <div className="container-lg">
-    //   <Tabs
-    //     defaultActiveKey="list"
-    //     id="uncontrolled-tab-example"
-    //     className="mb-3 w-100 d-flex justify-content-center"
-    //   >
-    //     <Tab eventKey="list" title="Ready receipt (kundan karigar)">
-    //       Tab content for Home
-    //     </Tab>
-    //     <Tab eventKey="create" title="Create new ready receipt">
-    //       <KundanTable
-    //         handleRecipietChange={handleRecipietChange}
-    //         recieptData={recipitData}
-    //         karigarData={karigarData}
-    //         setRecipitData={setRecipitData}
-    //         selectedDropdownValue={selectedDropdownValue}
-    //         setSelectedDropdownValue={setSelectedDropdownValue}
-    //         readyReceiptType={readyReceiptType}
-    //         setReadyReceiptType={setReadyReceiptType}
-    //         stateForDocStatus={stateForDocStatus}
-    //         setStateForDocStatus={setStateForDocStatus}
-    //         readOnlyFields={readOnlyFields}
-    //         setReadOnlyFields={setReadOnlyFields}
-    //         warehouseListData={warehouseListData}
-    //         selectedLocation={selectedLocation}
-    //         setSelectedLocation={setSelectedLocation}
-    //         kunKarigarDropdownReset={kunKarigarDropdownReset}
-    //         setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-    //       />
-    //     </Tab>
-    //   </Tabs>
-    // </div>
   );
 };
 

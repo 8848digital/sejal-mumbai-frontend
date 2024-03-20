@@ -129,8 +129,16 @@ const useStockTransfer = () => {
   };
 
   const handleNewStockTransfer: any = () => {
+    const initialData: any = {
+      idx: 1,
+      source_warehouse: '',
+      target_warehouse: '',
+      item_code: '',
+      qty: 1,
+      allow_zero_valuation_rate: 1,
+    };
     setSourceLocation('');
-    setStockTransferData([initialTableData]);
+    setStockTransferData([initialData]);
   };
 
   const handleSelectedLocation: any = (e: any) => {

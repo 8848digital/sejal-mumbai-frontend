@@ -3,6 +3,7 @@ import React from 'react';
 import ItemStatusReport from './ItemStatusReport';
 import useItemStatusReportHook from '@/hooks/Report/item-status-report-hook';
 import ReportHeader from '../Header/ReportHeader';
+import ProductCodeReport from './ProductCodeReport/ProductCodeReport';
 
 const ReportIndexPage = () => {
   const router = useRouter();
@@ -10,11 +11,6 @@ const ReportIndexPage = () => {
   console.log(pathcontent, 'pathcontent index');
   const key = pathcontent[pathcontent?.length - 1];
   const {
-    itemStatusReportState,
-    dailyQtyStatusReport,
-    itemVoucherNumber,
-    setSearchItem,
-    searchItem,
     selectDropDownReset,
     setSelectDropDownReset,
     searchVoucherNum,
@@ -35,6 +31,11 @@ const ReportIndexPage = () => {
     setSearchName,
     HandleReportPrint,
     HandleSerachReport,
+    reportData,
+    itemCodeSearchValues,
+    setItemCodeSearchValues,
+    handleSearchItemCodeReport,
+    handleItemCodeSearchInput,
   }: any = useItemStatusReportHook();
   return (
     <div className="">
@@ -61,9 +62,9 @@ const ReportIndexPage = () => {
           handleMouseMove={handleMouseMove}
         />
       )} */}
-      {key === 'dailyQtyStatus' && (
+      {key === 'daily-qty-status' && (
         <ItemStatusReport
-          itemStatusReportState={dailyQtyStatusReport}
+          itemStatusReportState={reportData}
           reportName={'Daily Quantity Status Report'}
           selectDropDownReset={selectDropDownReset}
           setSelectDropDownReset={setSelectDropDownReset}
@@ -81,6 +82,25 @@ const ReportIndexPage = () => {
           name={dailyStatusSearchName}
           HandleReportPrint={HandleReportPrint}
           HandleSerachReport={HandleSerachReport}
+        />
+      )}
+      {key === 'product-code' && (
+        <ProductCodeReport
+          reportData={reportData}
+          reportName={'Product Code Report'}
+          HandleItemCodeSearchInput={handleItemCodeSearchInput}
+          isLoading={dailyStatusLoading}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={dailyStatusSearchName}
+          HandleReportPrint={HandleReportPrint}
+          itemCodeSearchValues={itemCodeSearchValues}
+          searchInputValues={handleSearchItemCodeReport}
         />
       )}
     </div>

@@ -121,15 +121,19 @@ const KundanKarigarReadyReceiptMasterTable = ({
             <th className="thead" scope="col">
               Product Code<span className="text-danger">*</span>
             </th>
-            <th className="thead" scope="col">
-              Kun Karigar
-            </th>
+            {(query?.receipt === 'kundan' || query?.receipt === 'Kundan') && (
+              <th className="thead" scope="col">
+                Kun Karigar
+              </th>
+            )}
             <th className="thead" scope="col">
               Net Wt<span className="text-danger">*</span>
             </th>
-            <th className="thead" scope="col">
-              Few Wt
-            </th>
+            {(query?.receipt === 'kundan' || query?.receipt === 'Kundan') && (
+              <th className="thead" scope="col">
+                Few Wt
+              </th>
+            )}
             <th className="thead" scope="col">
               Mat Wt
             </th>
@@ -137,7 +141,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Gross Wt
             </th>
             {query?.receipt === 'mangalsutra' ||
-              query?.receipt === 'Mangalsutra' ? (
+            query?.receipt === 'Mangalsutra' ? (
               <th className="thead" scope="col">
                 BB Pcs
               </th>
@@ -167,7 +171,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 <tr key={item.idx} className={`${styles.table_row}`}>
                   <td
                     className="table_row"
-                  // ref={firstInputRef}
+                    // ref={firstInputRef}
                   >
                     {item.idx}
                   </td>
@@ -188,34 +192,40 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly={readOnlyFields}
                     />
                   </td>
-                  <td className="table_row">
-                    <SelectInputKunKarigar
-                      kundanKarigarData={kundanKarigarData}
-                      kunKarigarDropdownReset={kunKarigarDropdownReset}
-                      setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-                      defaultValue={item.custom_kun_karigar}
-                      tableData={tableData}
-                      setTableData={setTableData}
-                      // selectedKundanKarigarDropdownValue={
-                      //   selectedKundanKarigarDropdownValue
-                      // }
-                      setSelectedKundanKarigarDropdownValue={
-                        setSelectedKundanKarigarDropdownValue
-                      }
-                      item={item}
-                      id={item.idx}
-                      setStateForDocStatus={setStateForDocStatus}
-                      readOnlyFields={readOnlyFields}
-                      fieldName={'custom_kun_karigar'}
-                    />
-                  </td>
+                  {(query?.receipt === 'kundan' ||
+                    query?.receipt === 'Kundan') && (
+                    <td className="table_row">
+                      <SelectInputKunKarigar
+                        kundanKarigarData={kundanKarigarData}
+                        kunKarigarDropdownReset={kunKarigarDropdownReset}
+                        setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                        defaultValue={item.custom_kun_karigar}
+                        tableData={tableData}
+                        setTableData={setTableData}
+                        // selectedKundanKarigarDropdownValue={
+                        //   selectedKundanKarigarDropdownValue
+                        // }
+                        setSelectedKundanKarigarDropdownValue={
+                          setSelectedKundanKarigarDropdownValue
+                        }
+                        item={item}
+                        id={item.idx}
+                        setStateForDocStatus={setStateForDocStatus}
+                        readOnlyFields={readOnlyFields}
+                        fieldName={'custom_kun_karigar'}
+                      />
+                    </td>
+                  )}
+
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       value={parseFloat(item.custom_net_wt)}
-                      defaultValue={item.custom_net_wt && item?.custom_net_wt?.toFixed(3)}
+                      defaultValue={
+                        item.custom_net_wt && item?.custom_net_wt?.toFixed(3)
+                      }
                       onChange={(e) =>
                         handleFieldChange(
                           item.idx,
@@ -227,24 +237,29 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly={readOnlyFields}
                     />
                   </td>
-                  <td className="table_row">
-                    <input
-                      className={` ${styles.input_field} text-end`}
-                      type="number"
-                      min={0}
-                      value={item.custom_few_wt}
-                      defaultValue={item.custom_few_wt && item.custom_few_wt?.toFixed(3)}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          item.idx,
-                          'tableRow',
-                          'custom_few_wt',
-                          e.target.value
-                        )
-                      }
-                      readOnly={readOnlyFields}
-                    />
-                  </td>
+                  {(query?.receipt === 'kundan' ||
+                    query?.receipt === 'Kundan') && (
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} text-end`}
+                        type="number"
+                        min={0}
+                        value={item.custom_few_wt}
+                        defaultValue={
+                          item.custom_few_wt && item.custom_few_wt?.toFixed(3)
+                        }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'tableRow',
+                            'custom_few_wt',
+                            e.target.value
+                          )
+                        }
+                        readOnly={readOnlyFields}
+                      />
+                    </td>
+                  )}
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-end`}
@@ -255,7 +270,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       //   item.custom_mat_wt
                       // }
                       value={item?.custom_mat_wt}
-                      defaultValue={item.custom_mat_wt && item.custom_mat_wt?.toFixed(3)}
+                      defaultValue={
+                        item.custom_mat_wt && item.custom_mat_wt?.toFixed(3)
+                      }
                       readOnly={readOnlyFields}
                       onChange={(e) => {
                         handleFieldChange(
@@ -281,11 +298,13 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       disabled
                       name={`sum-${i + 1}`}
                       // value={calculateGrossWt(i)?.toFixed(3)}
-                      value={item.custom_gross_wt && item.custom_gross_wt?.toFixed(3)}
+                      value={
+                        item.custom_gross_wt && item.custom_gross_wt?.toFixed(3)
+                      }
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
-                    query?.receipt === 'Mangalsutra' ? (
+                  query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} text-end`}
@@ -353,11 +372,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                          Number(tableData[i]?.totalAmount)
+                              Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                            ? tableData[i]?.custom_total
-                            : tableData[i]?.custom_other
+                          ? tableData[i]?.custom_total
+                          : tableData[i]?.custom_other
                       )?.toFixed(2)}
                     />
                   </td>
@@ -373,7 +392,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       handleCreate={handleCreate}
                     />
                   </td>
-                  <td className="table_row">
+                  <td className="table_row d-flex justify-content-center">
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
                       disabled={readOnlyFields}
@@ -383,7 +402,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   </td>
                   <td className="table_row">
                     <button
-                      className="form-control d-flex align-items-center delete-link p-1 border-0"
+                      className="form-control d-flex justify-content-center align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
                       onKeyDown={(e) => handleTabPress(e, item.idx)}
                       disabled={readOnlyFields}
