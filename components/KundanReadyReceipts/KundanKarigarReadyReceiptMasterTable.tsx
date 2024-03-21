@@ -4,9 +4,7 @@ import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import { useEffect, useState } from 'react';
 import TotalReadOnlyRow from './TotalReadOnlyRow';
 
 const KundanKarigarReadyReceiptMasterTable = ({

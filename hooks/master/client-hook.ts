@@ -12,8 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const useClientHook = () => {
-  // const dispatch = useDispatch();
-  // access token
   const loginAcessToken = useSelector(get_access_token);
   // api states
   const [clientList, setClientList] = useState();
@@ -25,8 +23,7 @@ const useClientHook = () => {
   const [errorC, setErrorC] = useState('');
   const [selectDropDownReset, setSelectDropDownReset] =
     useState<boolean>(false);
-  console.log(searchClient, 'search client in dropdown');
-  // get api function
+
   useEffect(() => {
     const getStateData: any = async () => {
       const clientData: any = await getClientApi(loginAcessToken.token);
@@ -35,7 +32,6 @@ const useClientHook = () => {
       );
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
-      console.log(clientData, 'kuncsotdata');
 
       if (clientGroupData?.data?.message?.status === 'success') {
         setClientGroupList(clientGroupData?.data?.message?.data);
@@ -52,7 +48,7 @@ const useClientHook = () => {
     };
     getStateData();
   }, []);
-  console.log(clientGroupList, 'client group list');
+
   const [errorC1, setError1] = useState('');
   const [errorC2, setError2] = useState('');
   const [clientName, setClientNameValue] = useState({
@@ -71,7 +67,6 @@ const useClientHook = () => {
   const HandleClientNameChange = (e: any) => {
     const { value } = e.target;
 
-    console.log(clientName, searchClient, 'client name saved');
     setClientNameValue({
       ...clientName,
       material: value,
@@ -90,17 +85,13 @@ const useClientHook = () => {
     };
     console.log(values, 'valuesname');
     if (clientName?.material === '' || clientName.material === undefined) {
-      console.log('inside console1');
       setError1('Input field cannot be empty');
-      console.log(errorC1);
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
     ) {
-      console.log('inside console2');
       setError2('Input field cannot be empty');
     } else {
-      console.log('inside console3');
       let apiRes: any = await postClientApi(loginAcessToken?.token, values);
       console.log('apires', apiRes);
       if (apiRes?.status === 'success') {
@@ -120,15 +111,13 @@ const useClientHook = () => {
   };
   // KunCsOt category post api
   const HandleKunCsOtChange = (e: any) => {
-    console.log(clientName, 'changing client');
     const { name, value } = e.target;
     setClientNameValue({ ...clientName, [name]: value });
     setError1('');
     setError2('');
   };
-  console.log(clientName, 'clientName');
+
   const HandleKunCsOtSave = async () => {
-    console.log(clientName, 'Kun Cat saved');
     const values = {
       version: 'v1',
       method: 'create_kun_cs_ot_category',
@@ -136,23 +125,20 @@ const useClientHook = () => {
       name1: clientName?.material,
       type: clientName?.material_abbr,
     };
-    console.log(values, 'valuesname');
+
     if (clientName?.material === '' || clientName.material === undefined) {
-      console.log('in condition 1');
       setError1('Input field cannot be empty');
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
     ) {
-      console.log('in condition 2');
       setError2('Input field cannot be empty');
     } else {
-      console.log('in condition 3');
       let apiRes: any = await postKunCsOtCategoryApi(
         loginAcessToken?.token,
         values
       );
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success') {
         toast.success('Kun-Cs-Ot Category Created');
         const KunData = await getKunCsOtCategoryApi(loginAcessToken.token);
@@ -169,15 +155,13 @@ const useClientHook = () => {
   };
   // post bb category api
   const HandleBBChange = (e: any) => {
-    console.log(clientName, 'changing client');
     const { name, value } = e.target;
     setClientNameValue({ ...clientName, [name]: value });
     setError1('');
     setError2('');
   };
-  console.log(clientName, 'clientName');
+
   const HandleBBSave = async () => {
-    console.log(clientName, 'material saved');
     const values = {
       version: 'v1',
       method: 'create_bb_category',
@@ -185,10 +169,9 @@ const useClientHook = () => {
       name1: clientName?.material,
       type: clientName?.material_abbr,
     };
-    console.log(values, 'valuesname');
+
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
-      console.log(errorC1);
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
@@ -196,7 +179,7 @@ const useClientHook = () => {
       setError2('Input field cannot be empty');
     } else {
       let apiRes: any = await postBBCategoryApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success') {
         toast.success('BB Category Created');
         const BbData = await getBBCategoryApi(loginAcessToken.token);
@@ -220,12 +203,12 @@ const useClientHook = () => {
       entity: 'client_group',
       client_group: inputValue1,
     };
-    console.log(values, 'valuesname');
+
     if (inputValue1.trim() === '') {
       setErrorC('Input field cannot be empty');
     } else {
       let apiRes: any = await postGroupDataApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Client Group Created');
         const clientGrpData: any = await getClientGroupApi(
@@ -242,7 +225,6 @@ const useClientHook = () => {
   const HandleClientGrpValue = (e: any) => {
     setErrorC('');
     setInputValue1(e.target.value);
-    console.log(inputValue1, 'input value');
   };
   const handleSelectClientGroup = (value: any) => {
     setSearchClient(value);

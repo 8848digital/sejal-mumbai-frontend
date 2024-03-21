@@ -73,12 +73,11 @@ const DetailPageReadyReceipt = () => {
     specificDataFromStore,
   } = useReadyReceiptKarigar();
 
-  // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const router = useRouter();
   const [tabDisabled, setTabDisabled] = useState<boolean>(false);
 
   useEffect(() => {
-    if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
+    if (defaultKarigarData?.length > 0) {
       defaultKarigarData.map((data: any) => {
         setTableData(data?.items);
         setRecipitData(data);
@@ -163,7 +162,7 @@ const DetailPageReadyReceipt = () => {
                   </div>
                 ))}
 
-              <div className=" table">
+              <div className="table">
                 <KundanTable
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}

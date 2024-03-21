@@ -21,7 +21,7 @@ const useMasterHooks = () => {
     const getStateData: any = async () => {
       const karigarData: any = await getKarigarApi(loginAcessToken.token);
       const kunKarigarData = await kundanKarigarApi(loginAcessToken.token);
-      console.log(karigarData, 'KarigarData Master');
+
       setKarigarList(karigarData);
       setKunKarigarList(kunKarigarData);
     };
@@ -37,17 +37,17 @@ const useMasterHooks = () => {
       entity: 'karigar',
       karigar_name: inputValue,
     };
-    console.log(values, 'values');
+
     if (inputValue.trim() === '') {
       setError('Input field cannot be empty');
       console.log(error);
     } else {
       let apiRes: any = await postKarigarApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Karigar Name Created');
         const karigarApi: any = await getKarigarApi(loginAcessToken.token);
-        console.log(karigarApi, 'data after post api');
+
         setKarigarList(karigarApi);
       } else {
         toast.error('Karigar Name already exist');
@@ -59,7 +59,6 @@ const useMasterHooks = () => {
   const HandleInputValue = (e: any) => {
     setError('');
     setInputValue(e.target.value);
-    console.log(inputValue, 'input value');
   };
   // post kundan karigar api
   const HandleKunSubmit = async () => {
@@ -69,13 +68,13 @@ const useMasterHooks = () => {
       entity: 'kundan_karigar',
       karigar_name: inputValue,
     };
-    console.log(values, 'values');
+
     if (inputValue.trim() === '') {
       setError('Input field cannot be empty');
       console.log(error);
     } else {
       let apiRes: any = await postKunKarigarApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Kundan Karigar Name Created');
         const karigarApi = await kundanKarigarApi(loginAcessToken?.token);
@@ -91,7 +90,6 @@ const useMasterHooks = () => {
   const HandleKunInputValue = (e: any) => {
     setError('');
     setInputValue(e.target.value);
-    console.log(inputValue, 'input value');
   };
 
   return {

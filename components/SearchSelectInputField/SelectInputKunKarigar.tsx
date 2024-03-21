@@ -47,7 +47,6 @@ const SelectInputKunKarigar = ({
   }, [kunKarigarDropdownReset, setSelectedKundanKarigarDropdownValue]);
 
   const handleSelectedOption = (data: any, i: any) => {
-    console.log('iddd', id);
     setSelectedKundanKarigarDropdownValue(data?.karigar_name);
     if (setSelectedItemCodeForCustomerSale !== undefined) {
       setSelectedItemCodeForCustomerSale({
@@ -164,7 +163,7 @@ const SelectInputKunKarigar = ({
       setShowDropdown(true);
     }
     const uppercaseValue = e.target.value.toUpperCase();
-    console.log('uppercase item code', uppercaseValue);
+
     setSelectedKundanKarigarDropdownValue({
       id: id,
       item_code: uppercaseValue,
@@ -212,7 +211,7 @@ const SelectInputKunKarigar = ({
     }
     handleKeyDown(e);
   };
-  console.log('width ', width);
+
   return (
     <div>
       <input

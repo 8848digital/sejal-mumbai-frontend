@@ -8,19 +8,15 @@ const ReadOnlyInputFieldComponent = ({ value }: any) => {
   return (
     <input
       type="number"
-      className={`table_row ${query?.hasOwnProperty('kundan')
+      className={`table_row ${
+        query?.hasOwnProperty('kundan')
           ? styles.input_field
           : styles.customer_sale_input_field
-        } text-end border-0 bg-primary bg-opacity-10`}
+      } text-end border-0 bg-primary bg-opacity-10`}
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
-      // id={id}
-      // name={id}
       readOnly
       value={value}
-    // onChange={onChange}
-    // onKeyDown={(e) => handleKeyDown(e, 'custom_hm_pcs')}
-    // ref={inputRef}
     />
   );
 };
