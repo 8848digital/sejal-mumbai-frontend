@@ -81,27 +81,27 @@ const ProductCodeReport = ({
           </div>
           <div className="row justify-content-center">
             <div
-              className={`col table-responsie m-auto ${styled.table_container}`}
+              className={`col-lg-10 col-12 mx-auto table-responsie m-auto ${styled.table_container}`}
             >
               <table className="table table-hover table-striped cursor ">
                 <thead className="sticky-top">
                   <tr className="row justify-content-center ">
-                    <th scope="col" className="thead col-sm-1 ">
+                    <th scope="col" className="thead col-1 ">
                       Sr.No.
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Product Code
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Gross Wt
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Net Wt
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Location
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Karigar
                     </th>
                   </tr>
@@ -116,22 +116,22 @@ const ProductCodeReport = ({
                             key={index}
                             className={`row justify-content-center text-center ${styles.table_row} `}
                           >
-                            <td className="col-sm-1 table_row py-1 py-auto">
+                            <td className="col-1 table_row py-1 py-auto">
                               {index + 1}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.name}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_gross_wt}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_net_wt}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_warehouse}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_karigar}
                             </td>
                           </tr>
