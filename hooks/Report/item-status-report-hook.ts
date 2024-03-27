@@ -35,6 +35,7 @@ const useItemStatusReportHook = () => {
   const [itemCodeSearchValues, setItemCodeSearchValues] = useState<any>({
     name: '',
     karigar: '',
+    custom_warehouse: '',
   });
 
   // report data states

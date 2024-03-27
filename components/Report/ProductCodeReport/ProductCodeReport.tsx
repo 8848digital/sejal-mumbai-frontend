@@ -26,20 +26,27 @@ const ProductCodeReport = ({
   const filteredList =
     reportData?.length > 0 &&
     reportData !== null &&
-    (itemCodeSearchValues.name || itemCodeSearchValues.karigar)
+    (itemCodeSearchValues.name ||
+      itemCodeSearchValues.karigar ||
+      itemCodeSearchValues.custom_warehouse)
       ? reportData.filter((item: any) => {
-          const itemCodeMatch = itemCodeSearchValues
+          const itemCodeMatch = itemCodeSearchValues.name
             ? item?.name
                 ?.toLowerCase()
                 .includes(itemCodeSearchValues?.name?.toLowerCase())
             : true;
-          const karigatMatch = itemCodeSearchValues
-            ? item?.custom_kun_karigar
+          const karigarMatch = itemCodeSearchValues.karigar
+            ? item?.custom_karigar
                 ?.toLowerCase()
                 .includes(itemCodeSearchValues?.karigar?.toLowerCase())
             : true;
+          const locationMatch = itemCodeSearchValues.custom_warehouse
+            ? item?.custom_warehouse
+                ?.toLowerCase()
+                .includes(itemCodeSearchValues?.custom_warehouse?.toLowerCase())
+            : true;
 
-          return itemCodeMatch && karigatMatch;
+          return itemCodeMatch && karigarMatch && locationMatch;
         })
       : reportData;
 
@@ -54,7 +61,7 @@ const ProductCodeReport = ({
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && (
         <NoRecord
-          title={`No Record Found 😥`}
+          title={`No Record Found `}
           heading=""
           HandleRefresh={HandleRefresh}
         />
@@ -92,6 +99,9 @@ const ProductCodeReport = ({
                       Net Wt
                     </th>
                     <th scope="col" className="thead col-sm-2 ">
+                      Location
+                    </th>
+                    <th scope="col" className="thead col-sm-2 ">
                       Karigar
                     </th>
                   </tr>
@@ -117,6 +127,9 @@ const ProductCodeReport = ({
                             </td>
                             <td className="col-sm-2 table_row py-1 py-auto">
                               {data.custom_net_wt}
+                            </td>
+                            <td className="col-sm-2 table_row py-1 py-auto">
+                              {data.custom_warehouse}
                             </td>
                             <td className="col-sm-2 table_row py-1 py-auto">
                               {data.custom_karigar}
